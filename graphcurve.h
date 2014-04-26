@@ -3,19 +3,20 @@
 
 #include <QList>
 #include <QColor>
-#include <vector>
+#include <QVector>
 #include <QString>
 #include <QPointF>
 
-typedef std::vector<QPointF*> QPointFVec;
+typedef QVector<QPointF> QPointFVec;
 
 class GraphCurve
 {
 public:
-    GraphCurve();
+    GraphCurve(QString label);
     GraphCurve(QPointFVec Coords, QString label);
     GraphCurve(std::vector<double> xPoint, std:: vector<double> yPoint, QString);
 
+    QPointFVec getCoordinates();
     QString getLabel();
     double xPointMax();
     double yPointMax();

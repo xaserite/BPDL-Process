@@ -9,6 +9,7 @@
 #include "graphcurve.h"
 #include "graphlayout.h"
 #include "graphlayoutmetrics.h"
+#include "graphcurvedrawer.h"
 
 class GraphPlot : public QWidget
 {
@@ -27,16 +28,19 @@ public slots:
     void updateGraphPlot();
 
 private:
-    GraphCurveList graphList;
+    QList<GraphCurve*> graphList;
     GraphCurve *GraphCursor;
     QPainter *painter;
     GraphLayout *Layout;
+    GraphCurveDrawer *curveDrawer;
 
     bool containsPlotData();
     bool containsGraphCurve(QString label);
     void setGraphCursor(QString label);
     double xRangeInUnits();
     double yRangeInUnits();
+
+    void drawGraphList();
 };
 
 #endif // GRAPHPLOT_H

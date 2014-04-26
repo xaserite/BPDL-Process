@@ -10,8 +10,9 @@ GraphPlot::GraphPlot(QSize size, QWidget *parent) :
     setMinimumSize(size);
     setMaximumSize(size);
     painter = new QPainter();
-    GraphLayoutMetrics *D = new GraphLayoutMetrics();
+    GraphLayoutMetrics *D = new GraphLayoutMetrics(size);
     Layout = new GraphLayout(D,painter);
+    curveDrawer = new GraphCurveDrawer(D,painter);
 }
 
 void GraphPlot::addGraphCurve(GraphCurve *Curve){
@@ -35,6 +36,7 @@ void GraphPlot::paintEvent(QPaintEvent *event){
     QWidget::paintEvent(event);
     painter->begin(this);
     Layout->drawLayout();
+    drawGraphList();
     painter->end();
 }
 
@@ -71,4 +73,9 @@ double GraphPlot::yRangeInUnits(){
     double maxYPoint = 0;
     foreach(GraphCurve *G,graphList) maxYPoint = (G->yPointMax()>maxYPoint) ? G->yPointMax() : maxYPoint;
     return maxYPoint;
+}
+
+void GraphPlot::drawGraphList(){
+    foreach(GraphCurve *curve,graphList)
+        curveDrawer->draw(*curve);
 }

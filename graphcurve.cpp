@@ -1,7 +1,8 @@
 #include "graphcurve.h"
 #include "helper.h"
 
-GraphCurve::GraphCurve(){
+GraphCurve::GraphCurve(QString label){
+    Label = label;
 }
 
 GraphCurve::GraphCurve(QPointFVec Coords, QString label){
@@ -14,31 +15,35 @@ GraphCurve::GraphCurve(std::vector<double> xPoint, std:: vector<double> yPoint, 
     extractCoordinates(xPoint,yPoint);
 }
 
+QPointFVec GraphCurve::getCoordinates(){
+    return Coordinates;
+}
+
 QString GraphCurve::getLabel(){
     return Label;
 }
 
 double GraphCurve::xPointMax(){
     double xMax = 0;
-    foreach(QPointF *point,Coordinates)
-        xMax = helper::takeGreater(xMax, point->x());
+    foreach(QPointF point,Coordinates)
+        xMax = helper::takeGreater(xMax, point.x());
     return xMax;
 }
 
 double GraphCurve::yPointMax(){
     double yMax = 0;
-    foreach(QPointF *point,Coordinates)
-        yMax = helper::takeGreater(yMax, point->y());
+    foreach(QPointF point,Coordinates)
+        yMax = helper::takeGreater(yMax, point.y());
     return yMax;
 }
 
 void GraphCurve::appendQPointF(QPointF point){
-    Coordinates.push_back(&point);
+    Coordinates.push_back(point);
 }
 
 void GraphCurve::appendQPointFs(QPointFVec points){
-    foreach(QPointF *point,points)
-        appendQPointF(*point);
+    foreach(QPointF point,points)
+        appendQPointF(point);
 }
 
 bool GraphCurve::hasLabel(QString label){
