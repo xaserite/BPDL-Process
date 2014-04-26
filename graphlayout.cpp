@@ -15,6 +15,7 @@ void GraphLayout::drawLayout(){
     drawAxes();
     drawMesh();
     drawMarks();
+    drawNumbers();
 }
 
 void::GraphLayout::drawAxes(){
@@ -92,13 +93,15 @@ void GraphLayout::drawYAxisMarkEmphasis(){
 }
 
 void GraphLayout::drawXAxisNumbers(){
+    initXAxis();
     for(double pos=0;pos<M->DataRange.x();pos+=M->MeshSizeInUnits.x()*M->MeshEmphasis.x())
         drawXAxisSingleNumber(pos);
 }
 
 void GraphLayout::drawYAxisNumbers(){
+    initYAxis();
     for(double pos=0;pos<M->DataRange.y();pos+=M->MeshSizeInUnits.y()*M->MeshEmphasis.y())
-        drawXAxisSingleNumber(pos);
+        drawYAxisSingleNumber(pos);
 }
 
 void GraphLayout::drawXAxisArrow(){
@@ -153,12 +156,16 @@ void GraphLayout::drawXAxisSingleNumber(double number){
     QString string = QString::number(number);
     drawingStartCursor.xymove(-M->textWidth(string)/2,M->textHeight()+M->MarkSize*1.1);
     painter->drawText((drawingStartCursor), string);
+    drawingStartCursor.xymove(M->textWidth(string)/2,-(M->textHeight()+M->MarkSize*1.1));
+    drawingStartCursor.xmove(M->xMeshEmphasisInPixels());
 }
 
 void GraphLayout::drawYAxisSingleNumber(double number){
     QString string = QString::number(number);
-    drawingStartCursor.xymove(-M->textWidth(string)/2,M->textHeight()+M->MarkSize*1.1);
+    drawingStartCursor.xymove(-M->textWidth(string)-M->MarkSize*3,+M->textHeight()/2);
     painter->drawText((drawingStartCursor), string);
+    drawingStartCursor.xymove(M->textWidth(string)+M->MarkSize*3,-M->textHeight()/2);
+    drawingStartCursor.ymove(-M->yMeshEmphasisInPixels());
 }
 
 void GraphLayout::drawLine(){
