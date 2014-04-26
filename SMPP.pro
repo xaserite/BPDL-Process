@@ -16,7 +16,6 @@ SOURCES += main.cpp\
     graphplot.cpp \
     graphcurve.cpp \
     drawingcursor.cpp \
-    window.cpp \
     graphlayout.cpp \
     graphlayoutmetrics.cpp
 
@@ -25,7 +24,6 @@ HEADERS  += \
     graphcurve.h \
     helper.h \
     drawingcursor.h \
-    window.h \
     graphlayout.h \
     graphlayoutmetrics.h
 

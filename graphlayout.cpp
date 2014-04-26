@@ -64,59 +64,59 @@ void GraphLayout::drawYAxis(){
 
 void GraphLayout::drawXMesh(){
     initYAxis();
-    for(double pos=0;pos<xRangeInUnits;pos+=xMeshWidthInUnits*xMeshEmphasisStep)
+    for(double pos=0;pos<M->DataRange.x();pos+=M->MeshSizeInUnits.x()*M->MeshEmphasis.x())
         drawXMeshSingleLine();
 }
 
 void GraphLayout::drawYMesh(){
     initXAxis();
-    for(double pos=0;pos<yRangeInUnits;pos+=yMeshHeightInUnits*yMeshEmphasisStep)
+    for(double pos=0;pos<M->DataRange.y();pos+=M->MeshSizeInUnits.y()*M->MeshEmphasis.y())
         drawYMeshSingleLine();
 }
 
 void GraphLayout::drawXAxisMarks(){
     initXAxisMarks();
-    for(double pos=0;pos<xRangeInUnits;pos+=xMeshWidthInUnits)
+    for(double pos=0;pos<M->DataRange.x();pos+=M->MeshSizeInUnits.x())
         drawXAxisSingleMark();
 }
 
 void GraphLayout::drawYAxisMarks(){
     initYAxisMarks();
-    for(double pos=0;pos<yRangeInUnits;pos+=yMeshHeightInUnits)
+    for(double pos=0;pos<M->DataRange.y();pos+=M->MeshSizeInUnits.y())
         drawYAxisSingleMark();
 }
 
 void GraphLayout::drawXAxisMarkEmphasis(){
     initXAxisMarkEmphasis();
-    for(double pos=0;pos<xRangeInUnits;pos+=xMeshWidthInUnits*xMeshEmphasisStep)
+    for(double pos=0;pos<M->DataRange.x();pos+=M->MeshSizeInUnits.x()*M->MeshEmphasis.x())
         drawXAxisSingleEmphasisedMark();
 }
 
 void GraphLayout::drawYAxisMarkEmphasis(){
     initYAxisMarkEmphasis();
-    for(double pos=0;pos<yRangeInUnits;pos+=yMeshHeightInUnits*yMeshEmphasisStep)
+    for(double pos=0;pos<M->DataRange.y();pos+=M->MeshSizeInUnits.y()*M->MeshEmphasis.y())
         drawYAxisSingleEmphasisedMark();
 }
 
 void GraphLayout::drawXAxisNumbers(){
-    for(double pos=0;pos<xRangeInUnits;pos+=xMeshWidthInUnits*xMeshEmphasisStep)
+    for(double pos=0;pos<M->DataRange.x();pos+=M->MeshSizeInUnits.x()*M->MeshEmphasis.x())
         drawXAxisSingleNumber(pos);
 }
 
 void GraphLayout::drawYAxisNumbers(){
-    for(double pos=0;pos<yRangeInUnits;pos+=yMeshHeightInUnits*yMeshEmphasisStep)
+    for(double pos=0;pos<M->DataRange.y();pos+=M->MeshSizeInUnits.y()*M->MeshEmphasis.y())
         drawXAxisSingleNumber(pos);
 }
 
 void GraphLayout::drawXAxisArrow(){
-    drawingStartCursor.set(xWidthInPixels - marginSize, yHeightInPixels- marginSize - M->xAxisHeight());
-    drawingEndCursor.set(drawingStartCursor.x() - 2*MarkLength, drawingStartCursor.y() + 2*MarkLength);
+    drawingStartCursor.set(M->Size.width() - M->marginSize, M->Size.height()- M->marginSize - M->xAxisHeight());
+    drawingEndCursor.set(drawingStartCursor.x() - 2*M->MarkSize, drawingStartCursor.y() + 2*M->MarkSize);
     drawLine();
 }
 
 void GraphLayout::drawYAxisArrow(){
-    drawingStartCursor.set(marginSize + M->yAxisWidth(),marginSize);
-    drawingEndCursor.set(drawingStartCursor.x() - 2*MarkLength,drawingStartCursor.y() + 2*MarkLength);
+    drawingStartCursor.set(M->marginSize + M->yAxisWidth(),M->marginSize);
+    drawingEndCursor.set(drawingStartCursor.x() - 2*M->MarkSize,drawingStartCursor.y() + 2*M->MarkSize);
     drawLine();
 }
 
@@ -158,13 +158,13 @@ void GraphLayout::drawYAxisSingleEmphasisedMark(){
 
 void GraphLayout::drawXAxisSingleNumber(double number){
     QString string = QString::number(number);
-    drawingStartCursor.xymove(-M->textWidth(string)/2,M->textHeight()+MarkLength*1.1);
+    drawingStartCursor.xymove(-M->textWidth(string)/2,M->textHeight()+M->MarkSize*1.1);
     painter->drawText((drawingStartCursor), string);
 }
 
 void GraphLayout::drawYAxisSingleNumber(double number){
     QString string = QString::number(number);
-    drawingStartCursor.xymove(-M->textWidth(string)/2,M->textHeight()+MarkLength*1.1);
+    drawingStartCursor.xymove(-M->textWidth(string)/2,M->textHeight()+M->MarkSize*1.1);
     painter->drawText((drawingStartCursor), string);
 }
 
@@ -173,7 +173,7 @@ void GraphLayout::drawLine(){
 }
 
 void GraphLayout::initOrigin(){
-    drawingStartCursor.set(marginSize + M->yAxisWidth(),yHeightInPixels- marginSize - M->xAxisHeight());
+    drawingStartCursor.set(M->marginSize + M->yAxisWidth(),M->Size.height()- M->marginSize - M->xAxisHeight());
 }
 
 void GraphLayout::initXAxis(){
@@ -188,30 +188,30 @@ void GraphLayout::initYAxis(){
 
 void GraphLayout::initXAxisMarks(){
     initOrigin();
-    drawingEndCursor.set(drawingStartCursor.x(),drawingStartCursor.y()+MarkLength);
+    drawingEndCursor.set(drawingStartCursor.x(),drawingStartCursor.y()+M->MarkSize);
 }
 
 void GraphLayout::initYAxisMarks(){
     initOrigin();
-    drawingEndCursor.set(drawingStartCursor.x()-MarkLength,drawingStartCursor.y());
+    drawingEndCursor.set(drawingStartCursor.x()-M->MarkSize,drawingStartCursor.y());
 }
 
 void GraphLayout::initXAxisMarkEmphasis(){
     initOrigin();
-    drawingEndCursor.set(drawingStartCursor.x(),drawingStartCursor.y()+MarkLength*2);
+    drawingEndCursor.set(drawingStartCursor.x(),drawingStartCursor.y()+M->MarkSize*2);
 }
 
 void GraphLayout::initYAxisMarkEmphasis(){
     initOrigin();
-    drawingEndCursor.set(drawingStartCursor.x()-MarkLength*2,drawingStartCursor.y());
+    drawingEndCursor.set(drawingStartCursor.x()-M->MarkSize*2,drawingStartCursor.y());
 }
 
 void GraphLayout::initXAxisNumbers(){
-    drawingStartCursor.set(marginSize+M->yAxisWidth(),yHeightInPixels-marginSize);
+    drawingStartCursor.set(M->marginSize+M->yAxisWidth(),M->Size.height()-M->marginSize);
 }
 
 void GraphLayout::initYAxisNumbers(){
-    drawingStartCursor.set(marginSize+M->yAxisWidth()/2,yHeightInPixels- marginSize - M->xAxisHeight());
+    drawingStartCursor.set(M->marginSize+M->yAxisWidth()/2,M->Size.height()- M->marginSize - M->xAxisHeight());
 }
 
 void GraphLayout::initPenBlack(){
