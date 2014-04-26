@@ -4,18 +4,11 @@ GraphLayout::GraphLayout(GraphLayoutMetrics *D,QPainter *pt)
 {
     painter = pt;
     M = D;
-    font = D->Font;
-    xRangeInUnits = D->DataRange.x();
-    yRangeInUnits = D->DataRange.y();
-    xWidthInPixels = D->Size.width();
-    yHeightInPixels = D->Size.height();
-    marginSize = D->marginSize;
-    MarkLength = D->MarkSize;
-    xMeshWidthInUnits = D->MeshSizeInUnits.x();
-    yMeshHeightInUnits = D->MeshSizeInUnits.y();
-    xMeshEmphasisStep = D->MeshEmphasis.x();
-    yMeshEmphasisStep = D->MeshEmphasis.y();
     drawingEndCursor = drawingStartCursor = QPointF(0,0);
+}
+
+void GraphLayout::updateGraphLayout(QPointF Range){
+    M->DataRange = Range;
 }
 
 void GraphLayout::drawLayout(){

@@ -1,7 +1,6 @@
 #include <QtGui/QApplication>
 
 #include "graphplot.h"
-#include "window.h"
 
 int main(int argc, char *argv[])
 {

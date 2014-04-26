@@ -14,6 +14,16 @@ GraphLayoutMetrics::GraphLayoutMetrics(){
     MarkSize = 3;
 }
 
+GraphLayoutMetrics::GraphLayoutMetrics(QSize s){
+    Size = s;
+    DataRange = QPointF(100,100);
+    MeshSizeInUnits = QPointF(5,5);
+    MeshEmphasis = QPoint(2,2);
+    Font = QFont();
+    marginSize = 10;
+    MarkSize = 3;
+}
+
 QPoint GraphLayoutMetrics::Origin(){
     return QPoint(marginSize + yAxisWidth(),Size.height()- marginSize - xAxisHeight());
 }

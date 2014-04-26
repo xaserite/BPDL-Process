@@ -39,6 +39,8 @@ void GraphPlot::paintEvent(QPaintEvent *event){
 }
 
 void GraphPlot::updateGraphPlot(){
+    QPointF Range = QPointF(xRangeInUnits(),yRangeInUnits());
+    Layout->updateGraphLayout(Range);
 }
 
 void GraphPlot::setGraphCursor(QString label){

@@ -1,14 +1,11 @@
 #ifndef GRAPHLAYOUTDATA_H
 #define GRAPHLAYOUTDATA_H
 
-#include <QWidget>
-#include <QWidget>
-#include <QPaintEvent>
-#include <QtGlobal>
 #include <QPainter>
 
 struct GraphLayoutMetrics{
     GraphLayoutMetrics();
+    GraphLayoutMetrics(QSize s);
 
     QSize Size;
     QPointF DataRange;

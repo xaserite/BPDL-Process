@@ -13,28 +13,16 @@ class GraphLayout
 {
 public:    
     explicit GraphLayout(GraphLayoutMetrics *D,QPainter *pt);
+    void updateGraphLayout(QPointF Range);
     void drawLayout();
     
 signals:
     
 public slots:
-    void updateGraphLayout();
 
 private:
     QPainter *painter;
-    QFont font;
     GraphLayoutMetrics *M;
-
-    double xRangeInUnits;
-    double yRangeInUnits;
-    double xMeshWidthInUnits;
-    double yMeshHeightInUnits;
-    unsigned xWidthInPixels;
-    unsigned yHeightInPixels;
-    unsigned xMeshEmphasisStep;
-    unsigned yMeshEmphasisStep;
-    unsigned marginSize;
-    unsigned MarkLength;
     QString xlabel;
     QString ylabel;
 
