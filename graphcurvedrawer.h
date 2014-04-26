@@ -14,6 +14,9 @@ public:
 private:
     QPainter *painter;
     GraphLayoutMetrics *M;
+
+    QPointFVec transCurveCoordsIntoPixels(QPointFVec coords);
+    void drawTransCoords(QPointFVec coordVec);
 };
 
 #endif // GRAPHCURVEDRAWER_H

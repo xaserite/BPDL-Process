@@ -22,19 +22,26 @@ void GraphPlot::addGraphCurve(GraphCurve *Curve){
 
 void GraphPlot::appendToGraphCurve(QPointF point, QString label){
     if (!containsGraphCurve(label)) return;
-        setGraphCursor(label);
-        GraphCursor->appendQPointF(point);
+    setGraphCursor(label);
+    GraphCursor->appendQPointF(point);
 }
 
 void GraphPlot::appendToGraphCurve(QPointFVec points,QString label){
     if (!containsGraphCurve(label)) return;
-        setGraphCursor(label);
-        GraphCursor->appendQPointFs(points);
+    setGraphCursor(label);
+    GraphCursor->appendQPointFs(points);
+}
+
+void GraphPlot::appendToGraphCurve(QVector<double> x,QVector<double> y,QString label){
+    if (!containsGraphCurve(label)) return;
+    setGraphCursor(label);
+    GraphCursor->appendQVectors(x,y);
 }
 
 void GraphPlot::paintEvent(QPaintEvent *event){
     QWidget::paintEvent(event);
     painter->begin(this);
+    updateGraphPlot();
     Layout->drawLayout();
     drawGraphList();
     painter->end();

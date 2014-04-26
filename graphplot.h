@@ -20,6 +20,7 @@ public:
     void addGraphCurve(GraphCurve *Curve);
     void appendToGraphCurve(QPointF point,QString label);
     void appendToGraphCurve(QPointFVec points,QString label);
+    void appendToGraphCurve(QVector<double> x,QVector<double> y,QString label);
 
 protected:
     void paintEvent(QPaintEvent *event);

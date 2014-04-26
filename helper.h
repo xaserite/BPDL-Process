@@ -6,10 +6,11 @@
 #include <QPointF>
 #include <QPen>
 #include <QBrush>
+#include <QVector>
 
 namespace helper{
 
-bool areSameLength(std::vector<double> x, std::vector<double> y){
+bool areSameLength(QVector<double> x, QVector<double> y){
     return (x.size()==y.size()) ? true : false;
 }
 

@@ -9,9 +9,6 @@ int main(int argc, char *argv[])
     GraphCurve C("test");
     G.addGraphCurve(&C);
     G.appendToGraphCurve(QPointF(50,75),"test");
-    G.appendToGraphCurve(QPointF(50,50),"test");
-    G.appendToGraphCurve(QPointF(75,50),"test");
-    G.appendToGraphCurve(QPointF(75,75),"test");
     G.show();
     return a.exec();
 }

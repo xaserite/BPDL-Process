@@ -14,7 +14,7 @@ class GraphCurve
 public:
     GraphCurve(QString label);
     GraphCurve(QPointFVec Coords, QString label);
-    GraphCurve(std::vector<double> xPoint, std:: vector<double> yPoint, QString);
+    GraphCurve(QVector<double> xPoint, QVector<double> yPoint, QString);
 
     QPointFVec getCoordinates();
     QString getLabel();
@@ -22,15 +22,17 @@ public:
     double yPointMax();
     void appendQPointF(QPointF point);
     void appendQPointFs(QPointFVec points);
+    void appendQVectors(QVector<double> x, QVector<double> y);
     bool hasLabel(QString label);
 
 private:
     QString Label;
     QPointFVec Coordinates;
     QColor CurveColor;
+    bool isAppendable(QPointF point);
 
-    void extractCoordinates(std::vector<double> xPoint, std:: vector<double> yPoint);
-    void extractSingleCoordinate(size_t index, std::vector<double> xPoint, std:: vector<double> yPoint);
+    void extractCoordinates(QVector<double> xPoint, QVector<double> yPoint);
+    void extractSingleCoordinate(int index, QVector<double> xPoint, QVector<double> yPoint);
 };
 
 typedef QList<GraphCurve*> GraphCurveList;

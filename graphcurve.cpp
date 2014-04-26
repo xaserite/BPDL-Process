@@ -10,7 +10,7 @@ GraphCurve::GraphCurve(QPointFVec Coords, QString label){
     Label = label;
 }
 
-GraphCurve::GraphCurve(std::vector<double> xPoint, std:: vector<double> yPoint, QString label){
+GraphCurve::GraphCurve(QVector<double> xPoint, QVector<double> yPoint, QString label){
     Label = label;
     extractCoordinates(xPoint,yPoint);
 }
@@ -38,7 +38,8 @@ double GraphCurve::yPointMax(){
 }
 
 void GraphCurve::appendQPointF(QPointF point){
-    Coordinates.push_back(point);
+    if(isAppendable(point))
+        Coordinates.push_back(point);
 }
 
 void GraphCurve::appendQPointFs(QPointFVec points){
@@ -46,17 +47,25 @@ void GraphCurve::appendQPointFs(QPointFVec points){
         appendQPointF(point);
 }
 
+void GraphCurve::appendQVectors(QVector<double> x, QVector<double> y){
+    extractCoordinates(x,y);
+}
+
 bool GraphCurve::hasLabel(QString label){
     return (label == getLabel()) ? true : false;
 }
 
-void GraphCurve::extractCoordinates(std::vector<double> xPoint, std:: vector<double> yPoint){
+bool GraphCurve::isAppendable(QPointF point){
+    return (Coordinates.isEmpty()||Coordinates.last().x()<point.x()) ? true : false;
+}
+
+void GraphCurve::extractCoordinates(QVector<double> xPoint, QVector<double> yPoint){
     if (helper::areSameLength(xPoint,yPoint))
-        for(size_t index = 0;index<xPoint.size();index++)
+        for(int index = 0;index<xPoint.size();index++)
             extractSingleCoordinate(index, xPoint, yPoint);
 }
 
-void GraphCurve::extractSingleCoordinate(size_t index, std::vector<double> xPoint, std:: vector<double> yPoint){
+void GraphCurve::extractSingleCoordinate(int index, QVector<double> xPoint, QVector<double> yPoint){
     QPointF point(xPoint[index],yPoint[index]);
     appendQPointF(point);
 }
